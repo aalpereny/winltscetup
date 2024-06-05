@@ -1,11 +1,7 @@
 @echo off
 :: GetAdmin
-REM  --> Check for permissions
 >nul 2>&1 "%SYSTEMROOT%\system32\cacls.exe" "%SYSTEMROOT%\system32\config\system"
-
-REM --> If error flag set, we do not have admin.
 if '%errorlevel%' NEQ '0' (
-    echo Requesting administrative privileges...
     goto UACPrompt
 ) else ( goto gotAdmin )
 
@@ -20,9 +16,9 @@ if '%errorlevel%' NEQ '0' (
 :gotAdmin
     pushd "%CD%"
     CD /D "%~dp0"
-    REM Run single-line code under the .BAT path
-    powershell.exe /c "Expand-Archive -Force .\skus.zip"
-    powershell.exe /c "Copy-Item -Path .\skus -Destination %windir%\system32\spp\tokens -Recurse"
+    powershell.exe /c "Invoke-WebRequest -Uri 'https://github.com/aalpereny/winltscetup/raw/main/files/ltsc/skus.zip' -OutFile 'c:\temp\skus.zip'"
+    powershell.exe /c "Expand-Archive -Force c:\temp\skus.zip"
+    powershell.exe /c "Copy-Item -Path c:\temp\skus.zip -Destination %windir%\system32\spp\tokens -Recurse"
     cscript.exe %windir%\system32\slmgr.vbs /rilc
     cscript.exe %windir%\system32\slmgr.vbs /upk >nul 2>&1
     cscript.exe %windir%\system32\slmgr.vbs /ckms >nul 2>&1
