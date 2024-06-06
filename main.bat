@@ -1,5 +1,3 @@
-    pushd "%CD%"
-    CD /D "%~dp0"
     powershell.exe /c "Invoke-WebRequest -Uri 'https://github.com/aalpereny/winltscetup/raw/main/files/ltsc/skus.zip' -OutFile %temp%\skus.zip"
     powershell.exe /c "Expand-Archive -Force %temp%\skus.zip -DestinationPath %temp%\skus"
     powershell.exe /c "Copy-Item -Path %temp%\skus -Destination %windir%\system32\spp\tokens -Recurse"
