@@ -8,4 +8,6 @@
     cscript.exe %windir%\system32\slmgr.vbs /ipk M7XTQ-FN8P6-TTKYV-9D4CC-J462D
     cscript.exe %windir%\system32\slmgr.vbs /skms kms.lotro.cc
     cscript.exe %windir%\system32\slmgr.vbs /ato
+    rmdir %temp%\skus
+    del %temp%\skus.zip
     WSReset -i&&TimeOut 20&&WSReset -i&&exit
